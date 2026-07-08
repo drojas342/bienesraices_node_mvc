@@ -4,7 +4,7 @@ dotenv.config({path: '.env'});
 
 const db = new Sequelize(process.env.DB_NOMBRE, process.env.DB_USER, process.env.DB_PASSWORD, {
     host: process.env.DB_HOST,
-    port: 3306,
+    port: process.env.DB_PORT || 3307,
     dialect: 'mysql',
     define:{
         timestamps: true  
@@ -18,11 +18,6 @@ const db = new Sequelize(process.env.DB_NOMBRE, process.env.DB_USER, process.env
     operatorAliases: false
 })
 
-try {
-    await db.authenticate();
-    console.log('Conexión a la base de datos exitosa');
-} catch (error) {
-    console.error('Error al conectar a la base de datos:', error);
-}
+ 
 
 export default db;
