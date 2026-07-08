@@ -15,6 +15,23 @@ block contenido
 
         .mt-8.mx-auto.max-w-md
             .bg-white.py-8.px-4.shadow
+                div.mb-6.rounded-lg.border.border-indigo-200.bg-indigo-50.p-4
+                    p.text-sm.font-semibold.text-indigo-700.mb-2 Usuarios de prueba
+                    p.text-sm.text-gray-600.mb-2 Para explorar el proyecto puedes usar cualquiera de estos usuarios:
+                    ul.list-disc.list-inside.space-y-1.text-sm.text-gray-600
+                        li
+                            span.font-semibold diego@gmail.com
+                            span.mx-1  — 
+                            span password
+                        li
+                            span.font-semibold usuario1@gmail.com
+                            span.mx-1  — 
+                            span password
+                        li
+                            span.font-semibold usuario2@gmail.com
+                            span.mx-1  — 
+                            span password
+
                 form.space-y-5(method="POST" action="/auth/registro" novalidate)
                     input(type="hidden" name="_csrf" value=csrfToken)  
                     div 
