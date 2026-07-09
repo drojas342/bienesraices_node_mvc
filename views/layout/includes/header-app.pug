@@ -1,35 +1,55 @@
-header(class="bg-indigo-600 p-4  ")
-    .container.mx-auto.flex.justify-between.items-center
+mixin catLink(href, texto, extraClass)
+    a(href=href class=`text-sm font-bold uppercase text-white transition-colors ${extraClass}`) #{texto}
+
+header(class="bg-indigo-600 p-4")
+    .container.mx-auto.flex.items-center.justify-between
         a(href="/")
-            h1.text-2xl.text-white.font-extrabold.text-center Bienes 
+            h1.text-2xl.text-white.font-extrabold Bienes
                 span.font-normal Raices
-        
         if usuario
-            nav(class="my-5 text-sm md:flex md:items-center md:gap-3 font-bold text-white hidden")
-            
-                a(href="/mis-propiedades") Mis Propiedades
-                form(action="/auth/cerrar-sesion" method="POST")
+            nav(class="flex items-center gap-3 text-sm font-bold text-white")
+                a(href="/mis-propiedades" class="hover:text-indigo-200 transition-colors") Mis Propiedades
+                form(action="/auth/cerrar-sesion" method="POST" class="ml-4")
                     input(type="hidden" name="_csrf" value=csrfToken)
-                    input(type="submit" class="bg-indigo-800 py-2 px-10 rounded-lg" value="Cerrar Sesión")
+                    input(type="submit" class="bg-indigo-800 hover:bg-indigo-400 py-2 px-4 rounded-lg" value="Cerrar Sesión")
         else
-            nav(class="my-5 text-sm md:flex md:items-center md:gap-3 font-bold text-white hidden")
-                a(href="/auth/registro") Craer Cuenta
-                a(href="/auth/login") Iniciar Sesión
+            nav(class="flex items-center gap-3 text-sm font-bold text-white")
+                a(href="/auth/registro" class="hover:text-indigo-200 transition-colors") Craer Cuenta
+                a(href="/auth/login" class="hover:text-indigo-200 transition-colors ml-4") Iniciar Sesión
 
 div(class="bg-indigo-700 py-5")
-    div(class="container mx-auto flex flex-col gap-4 items-center lg:flex-row lg:justify-between")
+    div(class="container mx-auto")
 
-        nav(class="flex flex-wrap gap-3 items-center justify-center lg:justify-start lg:flex-1")
-            a(href="/categorias/1" class="text-sm font-bold uppercase text-white") Casas
-            a(href="/categorias/2" class="text-sm font-bold uppercase text-white") Departamentos
-            a(href="/categorias/3" class="text-sm font-bold uppercase text-white") Bodegas
-            a(href="/categorias/4" class="text-sm font-bold uppercase text-white") Terrenos
-            a(href="/categorias/5" class="text-sm font-bold uppercase text-white") Cabañas
+        // ── Fila 1: siempre visible — botón (solo móvil) + nav desktop (solo lg) + buscador ──
+        div(class="flex items-center justify-between gap-4")
 
-        div(class="flex w-full lg:w-auto justify-center lg:justify-end")
-            form(action="/buscador" method="POST" class="flex flex-col sm:flex-row gap-3 items-center w-full lg:w-auto")
+            button#btn-menu-app(
+                type="button"
+                aria-expanded="false"
+                aria-controls="mobile-menu-app"
+                class="lg:hidden text-white text-2xl leading-none p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-white/70"
+            ) ☰
+
+            // navegación de escritorio: oculta en móvil, fila normal en lg+
+            nav(class="hidden lg:flex flex-wrap gap-3 items-center flex-1")
+                +catLink('/categorias/1', 'Casas', 'hover:text-indigo-200')
+                +catLink('/categorias/2', 'Departamentos', 'hover:text-indigo-200')
+                +catLink('/categorias/3', 'Bodegas', 'hover:text-indigo-200')
+                +catLink('/categorias/4', 'Terrenos', 'hover:text-indigo-200')
+                +catLink('/categorias/5', 'Cabañas', 'hover:text-indigo-200')
+
+            form(action="/buscador" method="POST" class="flex items-center gap-3")
                 input(type="hidden" name="_csrf" value=csrfToken)
-                label(for="termino" class="text-sm uppercase font-bold text-white") Búsqueda:
-                input(type="text" id="termino" name="termino" placeholder="Buscar Propiedades" class="p-2 rounded-lg shadow text-sm w-full lg:w-64")
+                label(for="termino" class="text-sm uppercase font-bold text-white hidden sm:block") Búsqueda:
+                input(type="text" id="termino" name="termino" placeholder="Buscar Propiedades" class="p-2 rounded-lg shadow text-sm w-40 sm:w-64")
+                input(type="submit" class="bg-indigo-800 hover:bg-indigo-400 rounded-lg text-white uppercase font-bold p-2 cursor-pointer text-sm" value="Buscar")
 
-                input(type="submit" class="bg-indigo-800 hover:bg-indigo-400 rounded-lg text-white uppercase font-bold p-2 cursor-pointer text-sm w-full sm:w-auto" value="Buscar")
+        // ── Fila 2: dropdown móvil — bloque independiente, propia línea, solo < lg ──
+        nav#mobile-menu-app(class="hidden flex-col gap-1 mt-3 pt-3 border-t border-indigo-600 lg:hidden")
+            +catLink('/categorias/1', 'Casas', 'block py-2 px-2 rounded-md hover:bg-indigo-600')
+            +catLink('/categorias/2', 'Departamentos', 'block py-2 px-2 rounded-md hover:bg-indigo-600')
+            +catLink('/categorias/3', 'Bodegas', 'block py-2 px-2 rounded-md hover:bg-indigo-600')
+            +catLink('/categorias/4', 'Terrenos', 'block py-2 px-2 rounded-md hover:bg-indigo-600')
+            +catLink('/categorias/5', 'Cabañas', 'block py-2 px-2 rounded-md hover:bg-indigo-600')
+
+script(src="/js/menu.js")
