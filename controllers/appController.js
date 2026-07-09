@@ -95,7 +95,7 @@ const buscador = async (req, res) => {
         ]
     })
 
-    res.render('Busqueda', {
+    res.render('busqueda', {
         pagina: `Resultados de la busqueda: ${termino}`,
         propiedades,
         csrfToken: req.csrfToken()

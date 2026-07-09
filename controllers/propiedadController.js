@@ -49,6 +49,7 @@ const admin = async (req, res) => {
             paginas: Math.ceil(total / limit), //Calcular el total de paginas
             paginaActual: Number(paginaActual), //Si no hay pagina actual, se asigna 1
             total,
+            ocultar: true,
             offset,
             limit,
         });

@@ -5,7 +5,11 @@ header(class="bg-indigo-600 p-4")
                 span.font-normal Raices
 
         nav(class="flex items-center gap-3 text-sm font-bold text-white")
-            a(href="/mis-propiedades" class="hover:text-indigo-200 transition-colors") Mis Propiedades
+            if ocultar 
+                
+            else
+                a(href="/mis-propiedades" class="hover:text-indigo-200 transition-colors") Mis Propiedades
+            //a(href="/mis-propiedades" class="hover:text-indigo-200 transition-colors") Mis Propiedades
             form(action="/auth/cerrar-sesion" method="POST" class="ml-4")
                 input(type="hidden" name="_csrf" value=csrfToken)
                 input(type="submit" class="bg-indigo-800 hover:bg-indigo-400 py-2 px-4 rounded-lg" value="Cerrar Sesión")
